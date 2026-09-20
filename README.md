@@ -66,7 +66,7 @@ Bona fide and synthetic speech share the same augmentation distribution. Simulat
 
 ## Data access and use
 
-Dataset: [wli3221134/RealComm on Hugging Face](https://huggingface.co/datasets/wli3221134/RealComm)
+Dataset: [RealComm on Hugging Face](https://huggingface.co/datasets/wli3221134/RealComm)
 
 **Status: private preparation; dataset card only.** The repository is currently accessible only to authorized accounts. Manual approval is configured, but public access requests and audio downloads are not yet available.
 
