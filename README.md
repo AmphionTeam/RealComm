@@ -31,6 +31,19 @@ Call conditions cover **OtA–Handset**, **OtA–Speakerphone**, and **LtM** (li
 - **Combined adaptation:** simulated augmentation and RealCommTrain together yield the lowest pooled call EER for each of the three models.
 - **Signal analysis:** speech quality and spectral changes help characterize the channel, but better speech quality does not consistently imply better detection; attenuation at high frequencies alone does not explain condition difficulty.
 
+### Zero-shot benchmark
+
+EER (%) on Digital/test and RealCommBench, lower is better. The same source utterances are evaluated before and after real-call transmission; the detectors receive no RealComm adaptation.
+
+| Model | Digital | Call | Increase (percentage points) |
+| --- | ---: | ---: | ---: |
+| WavLM-L | 4.64 | 40.00 | +35.36 |
+| Whisper | 15.71 | 47.88 | +32.17 |
+| AASIST | 7.50 | 40.19 | +32.69 |
+| Teffic-Audio | 0.00 | 37.95 | +37.95 |
+| XLSR-SLS | 38.57 | 50.31 | +11.73 |
+| DF Arena | 7.86 | 38.77 | +30.91 |
+
 ### Adaptation results
 
 Pooled RealCommBench EER (%), lower is better. F: frozen baseline; A: simulated augmentation; T: real-call adaptation; A+T: their combination.
@@ -43,12 +56,35 @@ Pooled RealCommBench EER (%), lower is better. F: frozen baseline; A: simulated 
 
 These are the manuscript's matched adaptation comparisons. Its separate zero-shot table reports Teffic-Audio at 37.95% under the original inference precision.
 
+## RealComm-Aug
+
+![RealComm-Aug processing stages and output scenarios](assets/realcomm_augmentation.svg)
+
+RealComm-Aug samples a scenario, then samples operations and parameters within it. Acoustic environment, device response and processing, file coding, and call transmission are organized in signal-flow order. Intermediate outputs cover conventional noise, reverberation, device, and file perturbations; call scenarios combine bandwidth changes, communication codecs, and waveform-based packet-loss simulation. An unchanged-input path is also retained.
+
+Bona fide and synthetic speech share the same augmentation distribution. Simulated call output is passed directly to the detector, without receiver-side acoustic replay. The figure is shared with the manuscript and project page.
+
 ## Data access and use
 
-The dataset repository is **[wli3221134/RealComm on Hugging Face](https://huggingface.co/datasets/wli3221134/RealComm)**, with manual access approval configured. It is currently private and contains the dataset card only. When the release opens, request access with your Hugging Face account; approved users will download the data through an authenticated session.
+Dataset: [wli3221134/RealComm on Hugging Face](https://huggingface.co/datasets/wli3221134/RealComm)
+
+**Status: private preparation; dataset card only.** The repository is currently accessible only to authorized accounts. Manual approval is configured, but public access requests and audio downloads are not yet available.
+
+When the release opens, request access with your Hugging Face account. Approved users will download the data through an authenticated session.
 
 - Train on `train`, select models on `dev`, and evaluate on the fixed test manifest.
 - Evaluate Digital/test (560 utterances) and RealCommBench (23,520 recordings) separately. Compute pooled EER from all scores; do not average subgroup EERs.
 - Read the supplied manifests, retain source pairing, and use the same inference protocol across comparisons. Input configurations, routes, and denoising labels support optional subgroup analysis.
 
 Download instructions and the release license will be added with the data release. The current manuscript remains a draft; use its latest version for detailed protocols and results.
+
+## Resources
+
+| Resource | Availability |
+| --- | --- |
+| [Project page and paired audio examples](https://wwwwwli.github.io/RealComm/) | Available; English/Mandarin, bona fide/synthetic speech, and multiple call configurations |
+| [Manuscript draft](https://wwwwwli.github.io/RealComm/downloads/RealComm.pdf) | Available; dataset design, benchmark, quality/spectral analysis, and adaptation |
+| [Dataset](https://huggingface.co/datasets/wli3221134/RealComm) | Private preparation; manual access approval configured |
+| RealComm-Aug code and configurations | Not yet included in this repository |
+| Evaluation scripts and prediction-file specification | Not yet included in this repository |
+| Adapted model checkpoints | Not yet released through this repository |
