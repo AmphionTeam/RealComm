@@ -2,11 +2,11 @@
 
 **Audio deepfake detection over real communication channels**
 
-[Project page & audio examples](https://wwwwwli.github.io/RealComm/) · [Manuscript draft](https://wwwwwli.github.io/RealComm/downloads/RealComm.pdf)
+[Project page & audio examples](https://wwwwwli.github.io/RealComm/) · [Manuscript draft](https://wwwwwli.github.io/RealComm/downloads/RealComm.pdf) · [Dataset on Hugging Face](https://huggingface.co/datasets/wli3221134/RealComm)
 
 RealComm studies how audio deepfake detectors behave when speech passes through a real mobile call. It pairs digital speech with recordings of the same utterances under different input configurations, device routes, and denoising settings, and evaluates simulated augmentation and real-call adaptation.
 
-**Release status:** the project page and manuscript draft are available. The dataset release is being prepared for `wli3221134/RealComm` on Hugging Face, with manually approved access. Full dataset downloads are not yet enabled.
+**Release status:** the project page and manuscript draft are available. The Hugging Face dataset repository has been created and remains private during preparation. Full data files have not yet been uploaded; access requests will be manually reviewed when the release opens.
 
 ![RealComm acquisition and device design](assets/realcomm_overview.png)
 
@@ -45,7 +45,7 @@ These are the manuscript's matched adaptation comparisons. Its separate zero-sho
 
 ## Data access and use
 
-The planned dataset repository is **`wli3221134/RealComm` on Hugging Face**, using manual access approval. When the release opens, request access with your Hugging Face account; approved users will download the data through an authenticated session.
+The dataset repository is **[wli3221134/RealComm on Hugging Face](https://huggingface.co/datasets/wli3221134/RealComm)**, with manual access approval configured. It is currently private and contains the dataset card only. When the release opens, request access with your Hugging Face account; approved users will download the data through an authenticated session.
 
 - Train on `train`, select models on `dev`, and evaluate on the fixed test manifest.
 - Evaluate Digital/test (560 utterances) and RealCommBench (23,520 recordings) separately. Compute pooled EER from all scores; do not average subgroup EERs.
