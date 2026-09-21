@@ -2,7 +2,7 @@
 
 **Audio deepfake detection over real communication channels**
 
-[Project page & audio examples](https://wwwwwli.github.io/RealComm/) · [Manuscript draft](https://wwwwwli.github.io/RealComm/downloads/RealComm.pdf) · [Dataset on Hugging Face](https://huggingface.co/datasets/wli3221134/RealComm)
+[Project page & audio examples](https://wwwwwli.github.io/RealComm/) · [Manuscript draft](https://wwwwwli.github.io/RealComm/downloads/RealComm.pdf) · [Dataset on Hugging Face](https://huggingface.co/datasets/wli3221134/RealComm) · [Leaderboard · SpoofRadar](https://tefficlabs.com/spoofradar)
 
 RealComm studies how audio deepfake detectors behave when speech passes through a real mobile call. It pairs digital speech with recordings of the same utterances under different input configurations, device routes, and denoising settings, and evaluates simulated augmentation and real-call adaptation.
 
@@ -27,6 +27,8 @@ The benchmark release includes the **560 paired digital test utterances**, for a
 Call conditions cover **OtA–Handset**, **OtA–Speakerphone**, and **LtM** (line-to-microphone). OtA denotes over-the-air acoustic injection. Denoising labels distinguish `off`, `on`, and `not_available`; an unavailable switch does not mean denoising is off.
 
 ## Main findings
+
+Complete RealComm evaluation results will be published and maintained on [SpoofRadar](https://tefficlabs.com/spoofradar), our unified leaderboard for speech deepfake detection. This README summarizes the manuscript's fixed results; the platform will provide the full evaluation tables and subsequent updates. Model/checkpoint versions, evaluation protocols, and training settings will distinguish zero-shot benchmark entries from adaptation results.
 
 - **Domain shift:** across six existing detectors, real-call EER rises by 11.73–37.95 percentage points relative to digital speech. Acoustic injection is consistently harder than wired injection.
 - **RealComm-Aug:** staged waveform augmentation models acoustic propagation, device processing, and call transmission. Augmentation alone lowers call EER for all three adaptation models.
@@ -90,6 +92,7 @@ Download instructions and the release license will be added with the data releas
 | --- | --- |
 | [Project page and paired audio examples](https://wwwwwli.github.io/RealComm/) | Available; English/Mandarin, bona fide/synthetic speech, and multiple call configurations |
 | [Manuscript draft](https://wwwwwli.github.io/RealComm/downloads/RealComm.pdf) | Available; dataset design, benchmark, quality/spectral analysis, and adaptation |
+| [Leaderboard · SpoofRadar](https://tefficlabs.com/spoofradar) | Platform available; complete RealComm evaluation results will be published here |
 | [Benchmark dataset](https://huggingface.co/datasets/wli3221134/RealComm) | RealCommBench + Digital/test only; private preparation with manual approval configured |
 | RealComm-Aug code and configurations | Not yet included in this repository |
 | Evaluation scripts and prediction-file specification | Not yet included in this repository |
