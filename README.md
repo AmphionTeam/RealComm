@@ -6,7 +6,7 @@
 
 RealComm studies how audio deepfake detectors behave when speech passes through a real mobile call. It pairs digital speech with recordings of the same utterances under different input configurations, device routes, and denoising settings, and evaluates simulated augmentation and real-call adaptation.
 
-**Release status:** the project page and manuscript draft are available. The Hugging Face dataset repository has been created and remains private during preparation. Full data files have not yet been uploaded; access requests will be manually reviewed when the release opens.
+**Release scope: benchmark only.** The first data release will provide RealCommBench and its paired Digital/test references through manually approved Hugging Face access. RealCommTrain and the digital train/dev partitions are not included. The dataset repository remains private while the benchmark package and access terms are prepared.
 
 ![RealComm acquisition and device design](assets/realcomm_overview.png)
 
@@ -14,13 +14,15 @@ RealComm studies how audio deepfake detectors behave when speech passes through 
 
 The digital source pool contains 2,800 utterances, balanced across bona fide/synthetic speech and English/Mandarin. Synthetic speech covers CosyVoice2, F5-TTS, FlexiVoice, IndexTTS2, MaskGCT, Vevo2, and Minimax.
 
-| Partition | Independent source utterances | Call conditions per source | Call recordings |
-| --- | ---: | ---: | ---: |
-| RealCommTrain / train | 224 | 44 | 9,856 |
-| RealCommTrain / dev | 56 | 44 | 2,464 |
-| RealCommBench / test | 560 | 42 | 23,520 |
+| Partition | Independent source utterances | Call conditions per source | Call recordings | Release scope |
+| --- | ---: | ---: | ---: | --- |
+| RealCommTrain / train | 224 | 44 | 9,856 | Not included |
+| RealCommTrain / dev | 56 | 44 | 2,464 | Not included |
+| RealCommBench / test | 560 | 42 | 23,520 | Included in the benchmark release |
 
 The digital partitions contain 1,792 training, 448 development, and 560 test utterances. RealCommTrain records a subset of the digital training/development sources; RealCommBench records every digital test source. All versions of a source stay in the same partition.
+
+The benchmark release includes the **560 paired digital test utterances**, for a total of **24,080 audio files**. Digital training/development data and RealCommTrain remain unreleased.
 
 Call conditions cover **OtA–Handset**, **OtA–Speakerphone**, and **LtM** (line-to-microphone). OtA denotes over-the-air acoustic injection. Denoising labels distinguish `off`, `on`, and `not_available`; an unavailable switch does not mean denoising is off.
 
@@ -56,6 +58,8 @@ Pooled RealCommBench EER (%), lower is better. F: frozen baseline; A: simulated 
 
 These are the manuscript's matched adaptation comparisons. Its separate zero-shot table reports Teffic-Audio at 37.95% under the original inference precision.
 
+T and A+T use RealCommTrain, which is not part of this release. The benchmark package supports evaluating detectors, but does not by itself enable reproduction of those adaptation training runs.
+
 ## RealComm-Aug
 
 ![RealComm-Aug processing stages and output scenarios](assets/realcomm_augmentation.svg)
@@ -68,15 +72,17 @@ Bona fide and synthetic speech share the same augmentation distribution. Simulat
 
 Dataset: [RealComm on Hugging Face](https://huggingface.co/datasets/wli3221134/RealComm)
 
-**Status: private preparation; dataset card only.** The repository is currently accessible only to authorized accounts. Manual approval is configured, but public access requests and audio downloads are not yet available.
+**Status: benchmark release in preparation.** The repository is currently private. Manual approval is configured, but public access requests and audio downloads are not yet available.
 
 When the release opens, request access with your Hugging Face account. Approved users will download the data through an authenticated session.
 
-- Train on `train`, select models on `dev`, and evaluate on the fixed test manifest.
+- Use this package only for held-out evaluation. Select checkpoints, thresholds, and hyperparameters on independent training/development data, not on the released test set.
 - Evaluate Digital/test (560 utterances) and RealCommBench (23,520 recordings) separately. Compute pooled EER from all scores; do not average subgroup EERs.
 - Read the supplied manifests, retain source pairing, and use the same inference protocol across comparisons. Input configurations, routes, and denoising labels support optional subgroup analysis.
 
 Download instructions and the release license will be added with the data release. The current manuscript remains a draft; use its latest version for detailed protocols and results.
+
+**Why a benchmark-only release?** RealComm follows a phased release strategy. This release prioritizes standardized evaluation and reproduction of the digital-to-call benchmark results. RealCommTrain, including its development split, is outside the scope of the current release; no release date is announced for those partitions.
 
 ## Resources
 
@@ -84,7 +90,7 @@ Download instructions and the release license will be added with the data releas
 | --- | --- |
 | [Project page and paired audio examples](https://wwwwwli.github.io/RealComm/) | Available; English/Mandarin, bona fide/synthetic speech, and multiple call configurations |
 | [Manuscript draft](https://wwwwwli.github.io/RealComm/downloads/RealComm.pdf) | Available; dataset design, benchmark, quality/spectral analysis, and adaptation |
-| [Dataset](https://huggingface.co/datasets/wli3221134/RealComm) | Private preparation; manual access approval configured |
+| [Benchmark dataset](https://huggingface.co/datasets/wli3221134/RealComm) | RealCommBench + Digital/test only; private preparation with manual approval configured |
 | RealComm-Aug code and configurations | Not yet included in this repository |
 | Evaluation scripts and prediction-file specification | Not yet included in this repository |
 | Adapted model checkpoints | Not yet released through this repository |
