@@ -30,10 +30,10 @@ Call conditions cover **OtA–Handset**, **OtA–Speakerphone**, and **LtM** (li
 
 Complete RealComm evaluation results will be published and maintained on [SpoofRadar](https://tefficlabs.com/spoofradar), our unified leaderboard for speech deepfake detection. This README summarizes the manuscript's fixed results; the platform will provide the full evaluation tables and subsequent updates. Model/checkpoint versions, evaluation protocols, and training settings will distinguish zero-shot benchmark entries from adaptation results.
 
-- **Domain shift:** across six existing detectors, real-call EER rises by 11.73–37.95 percentage points relative to digital speech. Acoustic injection is consistently harder than wired injection.
+- **Domain shift:** real-call EER rises by 30.91–37.95 percentage points relative to digital speech for the detectors in the main comparison. Acoustic injection is consistently harder than wired injection.
 - **RealComm-Aug:** staged waveform augmentation models acoustic propagation, device processing, and call transmission. Augmentation alone lowers call EER for all three adaptation models.
 - **Combined adaptation:** simulated augmentation and RealCommTrain together yield the lowest pooled call EER for each of the three models.
-- **Signal analysis:** speech quality and spectral changes help characterize the channel, but better speech quality does not consistently imply better detection; attenuation at high frequencies alone does not explain condition difficulty.
+- **Signal analysis:** quality deterioration is associated with larger EER increases across recording conditions for the evaluated detectors. High-frequency energy loss alone does not explain condition difficulty.
 
 ### Zero-shot benchmark
 
@@ -45,8 +45,11 @@ EER (%) on Digital/test and RealCommBench, lower is better. The same source utte
 | Whisper | 15.71 | 47.88 | +32.17 |
 | AASIST | 7.50 | 40.19 | +32.69 |
 | Teffic-Audio | 0.00 | 37.95 | +37.95 |
-| XLSR-SLS | 38.57 | 50.31 | +11.73 |
 | DF Arena | 7.86 | 38.77 | +30.91 |
+
+The initial XLSR-SLS evaluation (38.57% digital / 50.31% call EER) is retained in the manuscript’s protocol discussion. Its weak digital baseline limits interpretation of the additional channel effect, so it is not included in the main comparisons.
+
+The manuscript also compares input configuration, denoising, language, and generation system in a unified figure.
 
 ### Adaptation results
 
@@ -61,6 +64,8 @@ Pooled RealCommBench EER (%), lower is better. F: frozen baseline; A: simulated 
 These are the manuscript's matched adaptation comparisons. Its separate zero-shot table reports Teffic-Audio at 37.95% under the original inference precision.
 
 T and A+T use RealCommTrain, which is not part of this release. The benchmark package supports evaluating detectors, but does not by itself enable reproduction of those adaptation training runs.
+
+Augmentation alone also improves ASVspoof 2021 LA EER for all three adaptation models. External-test improvements are not uniform: A+T raises In-the-Wild EER by 0.38, 0.78, and 0.85 percentage points for WavLM-L, AASIST, and Teffic-Audio. Figure 8 of the manuscript reports public-test changes on a shared scale.
 
 ## RealComm-Aug
 
